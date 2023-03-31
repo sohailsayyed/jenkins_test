@@ -18,7 +18,7 @@ pipeline {
             when {
                 anyOf{
                     expression {
-                         branch 'test'
+                  
                          branch 'main'
                          branch 'develop'
                          branch 'release'
@@ -29,10 +29,21 @@ pipeline {
 
             steps {
                 
-                echo "Test stage run successfully..! "   
-                echo "${env.test}"
+                echo "Test stage run successfully..! " 
+                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+
+                echo "${env.branch}"
+
+                sh 'npm install'
+                sh 'nohup node server.js &'
             }
             
+        }
+
+        stage('Final Steps') {
+            steps {
+                echo "Final stage run successfully..! "
+            }
         }
   
     }
