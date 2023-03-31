@@ -28,12 +28,14 @@ pipeline {
             steps {
                 
                 echo ' stage 1 '
+                echo "${env.BRANCH_NAME}"
             }
         }
         
         stage('Build') {
             steps {
                 echo "2nd stage "
+                echo "${env.BRANCH_NAME}"
             }
         }
 
