@@ -26,7 +26,7 @@ pipeline {
             steps {
                 
                 echo "Test stage run successfully..! "   
-                echo "${env.BRANCH_NAME}"
+                echo "${env.test}"
             }
             
         }
