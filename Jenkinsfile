@@ -1,38 +1,39 @@
 pipeline {
+    environment {
+        ENVIRONMENT = 'test'
+    }
     
     agent any
-    triggers {
-      githubPush()
-   }
+   
     stages {
-      
+        
+        stage('Start') {
+            steps {
+                echo "Start stage run successfully..! "
+            }
+        }
+
+        
         stage ('Checkout') {
             when {
-                anyOf {
-                    expression { env.BRANCH_NAME == "main" }
-                    expression { env.BRANCH_NAME == "develop" }
-                    expression { env.BRANCH_NAME ==~ "release" }
+                anyOf{
+                    expression {
+                         branch 'test'
+                         branch 'main'
+                         branch 'develop'
+                         branch 'release'
+                    }
                 }
             }
+        
 
             steps {
-                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
-                }
-        }
-        
-        stage('Install dependencies') {
-            steps {
-                sh 'npm install'
+                
+                echo "Test stage run successfully..! "   
+                echo "${env.test}"
             }
+            
         }
-        
-        stage('Build') {
-            steps {
-                sh 'nohup node server.js &'
-            }
-        }
-
-        
-    
+  
     }
 }
