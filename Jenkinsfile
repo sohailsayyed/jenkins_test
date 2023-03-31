@@ -12,7 +12,13 @@ pipeline {
                 echo "Test stage run successfully..! "
             }
         }
-      
+        
+        stage('My Conditional Stage') {
+            when (BRANCH_NAME == 'test') {
+                echo 'Only on master branch.'
+                }
+            }
+        
         stage ('Checkout') {
             when {
                 expression {
