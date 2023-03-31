@@ -6,7 +6,9 @@ pipeline {
       
         stage ('Checkout') {
             when {
-                anyOf {
+                
+                branch "test"
+                //anyOf {
                     //expression {  env.GITHUB_REF == "refs/heads/main" } 
                     
                    // expression { env.BRANCH_NAME == "develop" }
@@ -14,15 +16,15 @@ pipeline {
                     //expression { env.BRANCH_NAME ==~ "release" }
                     //expression {  env.GITHUB_REF == "refs/heads/test" }
                     
-                    branch 'master'
-                    branch 'develop'
-                    branch 'test'
-                    branch 'release/*'
-                }
+                  //  branch 'master'
+                   // branch 'develop'
+                  //  branch 'test'
+                  //  branch 'release/*'
+                //}
             }
 
             steps {
-                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release'], [name: '*/test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+                //checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release'], [name: '*/test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
                 echo "Test stage..! "   
                 echo "${env.GITHUB_REF}"
             }
