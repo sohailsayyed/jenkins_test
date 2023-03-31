@@ -56,7 +56,7 @@ pipeline {
             steps {
 
                 sh 'pwd'
-                sh 'aws s3 sync build/* s3://cloudtrail-test-12345/'
+                sh 'aws s3 sync . s3://cloudtrail-test-12345/'
                 //sh 'pwd'
                 //sh 'scp -rv *  ubuntu@13.233.236.84:/home/ubuntu/jenkins_test/'
                 //sh 'node app.js'
