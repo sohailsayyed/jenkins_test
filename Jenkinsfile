@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+        ENVIRONMENT = 'test'
+    }
     
     agent any
    
@@ -14,8 +17,8 @@ pipeline {
 
             steps {
                 
-                echo "Test stage..! "   
-                echo "${env.GITHUB_REF}"
+                echo "Test stage run successfully..! "   
+                echo "${env.ENVIRONMENT}"
             }
             
         }
