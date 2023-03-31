@@ -36,7 +36,7 @@ pipeline {
                 echo "${env.branch}"
 
                 sh 'npm install'
-                sh 'nohup node server.js &'
+                //sh 'nohup node server.js &'
             }
             
         }
