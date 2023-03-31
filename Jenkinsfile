@@ -1,8 +1,3 @@
-Final Working RI Frontend Pipeline
-
--------------------------------------------------------------------------------------------------------------
-
-
 pipeline {
     environment {
         ENVIRONMENT = 'test'
