@@ -1,3 +1,8 @@
+Final Working RI Frontend Pipeline
+
+-------------------------------------------------------------------------------------------------------------
+
+
 pipeline {
     environment {
         ENVIRONMENT = 'test'
@@ -15,10 +20,11 @@ pipeline {
 
         
         stage ('Checkout') {
+            
             when {
                 anyOf{
                     expression {
-                         branch 'test'
+                         
                          branch 'main'
                          branch 'develop'
                          branch 'release'
@@ -41,8 +47,25 @@ pipeline {
         }
 
         stage('Final Steps') {
+
+             when {
+                anyOf{
+                    expression {
+                         
+                        branch 'main'
+                        branch 'release'
+                    }
+                }
+            }
+
             steps {
-                echo "Final stage run successfully..! "
+
+                //sh 'aws s3 sync build s3://ri-frontend/'
+
+                sh 'scp -r *  ubuntu@13.233.236.84:/home/ubuntu/jenkins_test/'
+                sh 'node app.js'
+                
+                echo "+++Upload Successful+++"
             }
         }
   
