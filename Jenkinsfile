@@ -9,8 +9,9 @@ pipeline {
       
         stage ('Checkout') {
             when {
-                
-                branch "test";
+                expression {
+                    return env.BRANCH_NAME == 'test'
+                }
                 
             }
         
