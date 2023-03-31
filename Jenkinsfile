@@ -17,7 +17,7 @@ pipeline {
             }
 
             steps {
-                //checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release'], [name: '*/test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release'], [name: '*/test']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
                 echo "Test stage..! "   
                 echo "${env.BRANCH_NAME}"
             }
