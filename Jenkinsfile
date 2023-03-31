@@ -10,23 +10,27 @@ pipeline {
                     expression { env.BRANCH_NAME == "main" }
                     expression { env.BRANCH_NAME == "develop" }
                     expression { env.BRANCH_NAME ==~ "release" }
+                    expression { env.BRANCH_NAME == "test" }
                 }
             }
 
             steps {
-                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
-                }
+                //checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+                 echo "Test stage "               
+            }
+            
         }
         
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
+                
+                echo ' stage 1 '
             }
         }
         
         stage('Build') {
             steps {
-                sh 'nohup node server.js &'
+                echo "2nd stage "
             }
         }
 
