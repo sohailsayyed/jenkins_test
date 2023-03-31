@@ -12,20 +12,12 @@ pipeline {
                 echo "Test stage run successfully..! "
             }
         }
-        
-        stage('My Conditional Stage') {
-            when (BRANCH_NAME == 'test') {
-                echo 'Only on master branch.'
-                }
-                steps {
-                    echo "Test stage run successfully..! "
-                }      
-            }
+
         
         stage ('Checkout') {
             when {
                 expression {
-                    return env.BRANCH_NAME == 'test'
+                     branch 'test'
                 }
                 
             }
