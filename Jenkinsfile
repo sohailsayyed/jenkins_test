@@ -17,6 +17,9 @@ pipeline {
             when (BRANCH_NAME == 'test') {
                 echo 'Only on master branch.'
                 }
+                steps {
+                    echo "Test stage run successfully..! "
+                }      
             }
         
         stage ('Checkout') {
