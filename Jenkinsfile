@@ -10,7 +10,7 @@ pipeline {
         stage ('Checkout') {
             when {
                 
-                branch "test"
+                branch "test";
                 
             }
         
