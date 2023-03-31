@@ -6,6 +6,12 @@ pipeline {
     agent any
    
     stages {
+        
+        stage('Start') {
+            steps {
+                echo "Test stage run successfully..! "
+            }
+        }
       
         stage ('Checkout') {
             when {
@@ -19,7 +25,7 @@ pipeline {
             steps {
                 
                 echo "Test stage run successfully..! "   
-                echo "${env.ENVIRONMENT}"
+                echo "${env.BRANCH_NAME}"
             }
             
         }
