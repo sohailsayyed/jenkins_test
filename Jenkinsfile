@@ -7,12 +7,17 @@ pipeline {
         stage ('Checkout') {
             when {
                 anyOf {
-                    expression {  env.GITHUB_REF == "refs/heads/main" } 
+                    //expression {  env.GITHUB_REF == "refs/heads/main" } 
                     
                    // expression { env.BRANCH_NAME == "develop" }
                     
                     //expression { env.BRANCH_NAME ==~ "release" }
-                    expression {  env.GITHUB_REF == "refs/heads/test" }
+                    //expression {  env.GITHUB_REF == "refs/heads/test" }
+                    
+                    branch 'master'
+                    branch 'develop'
+                    branch 'test'
+                    branch 'release/*'
                 }
             }
 
