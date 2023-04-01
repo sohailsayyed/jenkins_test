@@ -4,7 +4,7 @@ pipeline {
     stage('Build For Develop') {
         when { 
           expression {
-           git branch: 'origin/develop'
+           git branch: 'origin/develop' url: 'https://github.com/sohailsayyed/jenkins_test.git'
           }
         }
         steps {
