@@ -1,10 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('Build For Develop') {
+    /*stage('Build For Develop') {
         when { 
           expression {
-           git branch: 'origin/develop' url: 'https://github.com/sohailsayyed/jenkins_test.git'
+           git branch: 'origin/develop'
           }
         }
         steps {
@@ -20,6 +20,18 @@ pipeline {
         steps {
              echo "Main branch run successfully..! "
         }
-    }
+    }*/
+    
+    stage('Build') {
+         steps {
+              script {
+                  def commit = checkout scm
+                    // we set BRANCH_NAME to make when { branch } syntax work without multibranch job
+                  env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
+
+                    //actually build ...
+                }
+            }
+        }
   }
 }
