@@ -41,7 +41,8 @@ pipeline {
           expression { env.BRANCH_NAME == "develop" }
         }
         steps {
-             echo " The "${env.BRANCH_NAME}" branch run successfully..! "
+             echo " The branch run successfully..! "
+             echo "${env.BRANCH_NAME}"
         }
     }
   }
