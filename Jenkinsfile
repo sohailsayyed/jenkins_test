@@ -4,7 +4,7 @@ pipeline {
     stage('Build For Develop') {
         when { 
           expression {
-           git branch: 'develop'
+           git branch: 'origin/develop'
           }
         }
         steps {
@@ -14,7 +14,7 @@ pipeline {
     stage('Build For Main') {
         when { 
           expression {
-           git branch: 'main'
+           git branch: 'origin/main'
           }
         }
         steps {
