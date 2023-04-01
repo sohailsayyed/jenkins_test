@@ -35,5 +35,14 @@ pipeline {
                 }
             }
         }
+    
+    stage('Build For Develop') {
+        when { 
+          expression { env.BRANCH_NAME == "develop" }
+        }
+        steps {
+             echo "echo "${env.BRANCH_NAME}" branch run successfully..! "
+        }
+    }
   }
 }
