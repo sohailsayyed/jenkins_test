@@ -28,7 +28,7 @@ pipeline {
                   def commit = checkout scm
                     // we set BRANCH_NAME to make when { branch } syntax work without multibranch job
                   env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
-                echo "${env.BRANCH_NAME}"
+                  echo "${env.BRANCH_NAME}"
                 
 
                     //actually build ...
@@ -41,7 +41,7 @@ pipeline {
           expression { env.BRANCH_NAME == "develop" }
         }
         steps {
-             echo "echo "${env.BRANCH_NAME}" branch run successfully..! "
+             echo " The "${env.BRANCH_NAME}" branch run successfully..! "
         }
     }
   }
