@@ -4,7 +4,7 @@ pipeline {
     stage('Build For Develop') {
         when { 
           expression {
-            branch 'develop'
+           git branch: 'develop'
           }
         }
         steps {
@@ -14,11 +14,11 @@ pipeline {
     stage('Build For Main') {
         when { 
           expression {
-            branch 'main'
+           git branch: 'main'
           }
         }
         steps {
-             echo "Develop branch run successfully..! "
+             echo "Main branch run successfully..! "
         }
     }
   }
