@@ -7,7 +7,7 @@ pipeline {
    
     stages {
         
-        stage('Set ENV for branchs') {
+        stage('Set ENV for branch') {
          steps {
             script {
                 def commit = checkout scm
@@ -23,18 +23,19 @@ pipeline {
             
             when {
                 anyOf{
-                    expression {                       
-                         env.BRANCH_NAME == "develop"
-                         env.BRANCH_NAME == "main"
-                         env.BRANCH_NAME == "release"
+                    expression { env.BRANCH_NAME == "develop" }
+                    expression { env.BRANCH_NAME == "main" }
+                    expression { env.BRANCH_NAME == "release" }
+                         
                     }
                 }
             }
         
+
             steps {
                 
                 echo "Test stage run successfully..! " 
-                //checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+                checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
 
                 echo "${env.BRANCH_NAME}"
 
@@ -48,11 +49,8 @@ pipeline {
 
              when {
                 anyOf{
-                    expression {
-                         
-                        env.BRANCH_NAME == "main"
-                        env.BRANCH_NAME == "release"
-                    }
+                    expression { env.BRANCH_NAME == "main" }
+                    expression { env.BRANCH_NAME == "release" }
                 }
             }
 
