@@ -1,36 +1,72 @@
 pipeline {
-  agent any
-  stages {
-
-    stage('Build') {
+    /*environment {
+        ENVIRONMENT = 'test'
+    }*/
+    
+    agent any
+   
+    stages {
+        
+        stage('Set ENV for branchs') {
          steps {
             script {
                 def commit = checkout scm
                 // we set BRANCH_NAME to make when { branch } syntax work without multibranch job
                 env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
                 echo "${env.BRANCH_NAME}"
-                
-
-                //actually build ...
                 }
             }
         }
 
-    stage('Build For Develop') {
-        when { 
-          expression { env.BRANCH_NAME == "develop" }
+        
+        stage ('Checkout') {
+            
+            when {
+                anyOf{
+                    expression {                       
+                         env.BRANCH_NAME == "develop"
+                         env.BRANCH_NAME == "main"
+                         env.BRANCH_NAME == "release"
+                    }
+                }
+            }
+        
+            steps {
+                
+                echo "Test stage run successfully..! " 
+                //checkout scmGit(branches: [[name: '*/main'], [name: '*/develop'], [name: '*/release']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHub-rootuser', url: 'https://github.com/sohailsayyed/jenkins_test.git']])
+
+                echo "${env.BRANCH_NAME}"
+
+                sh 'npm install'
+                //sh 'nohup node server.js &'
+            }
+            
         }
-        steps {
-             echo "Develop branch run successfully..! "
+
+        stage('Final Steps') {
+
+             when {
+                anyOf{
+                    expression {
+                         
+                        env.BRANCH_NAME == "main"
+                        env.BRANCH_NAME == "release"
+                    }
+                }
+            }
+
+            steps {
+
+                sh 'pwd'
+                sh 'aws s3 sync . s3://cloudtrail-test-12345/'
+                //sh 'pwd'
+                //sh 'scp -rv *  ubuntu@13.233.236.84:/home/ubuntu/jenkins_test/'
+                //sh 'node app.js'
+                
+                echo "+++Upload Successful+++"
+            }
         }
+  
     }
-    stage('Build For Main') {
-        when { 
-          expression { env.BRANCH_NAME == "main"}
-        }
-        steps {
-             echo "Main branch run successfully..! "
-        }
-    }
-  }
 }
